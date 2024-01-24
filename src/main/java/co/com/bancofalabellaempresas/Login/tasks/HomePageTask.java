@@ -1,5 +1,6 @@
 
 package co.com.bancofalabellaempresas.Login.tasks;
+import static co.com.bancofalabellaempresas.Login.interactions.WindowsManager.changeWindow;
 import static co.com.bancofalabellaempresas.Login.userinterfaces.HomePage.LISTADEBANCOS;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 
+import static net.serenitybdd.core.Serenity.getDriver;
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isCurrentlyVisible;
 
 public class HomePageTask implements Task {
@@ -28,6 +30,7 @@ public class HomePageTask implements Task {
     public <T extends Actor> void performAs(T actor) {
 
         OnStage.theActorInTheSpotlight().attemptsTo(
+                changeWindow(getDriver()),
                 WaitUntil.the(LISTADEBANCOS, isCurrentlyVisible()).forNoMoreThan(20).seconds(),
                 SelectFromOptions.byVisibleText(data.get(0).get("Banco")).from(LISTADEBANCOS)
         );
